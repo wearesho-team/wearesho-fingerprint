@@ -7,9 +7,9 @@
 Create instance of generator, set function that generates default fingerprint components:
 
 ```typescript
-import { FingerprintGenerator } from "@wearesho/fingerprint-generator";
+import { FingerPrintGenerator } from "@wearesho/fingerprint-generator";
 
-const generator = new FingerprintGenerator(() => ({
+const generator = new FingerPrintGenerator(() => ({
     resolution: "1600,900",
     timezone_offset: new Date().getTimezoneOffset(),
     anyOtherComponentKey: "anyOtherComponentValue",
@@ -19,5 +19,6 @@ const generator = new FingerprintGenerator(() => ({
 ### Generate unique fingerprint
 
 ```typescript
-const fingerprint = await generator.generate();
+const fingerprint = await generator.generateFP2();
+const timestampFingerprint = await generator.generateTimestamp();
 ```

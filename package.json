@@ -19,5 +19,8 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@wearesho/analytics-frontend": "^3.0.0"
   }
 }
