@@ -14,49 +14,33 @@ export interface FingerPrintData {
     components: FingerPrintComponents;
 }
 
-export class FingerPrintGenerator {
-    public static readonly timestampCookieKey = "bobra.timestamp-finger-print";
+export const generateFP2: Generator = (): Promise<FingerPrintData> => {
+    return new Promise((resolve: (data: FingerPrintData) => void) => {
+        new FingerPrint2().get((token, components) => resolve({
+            token,
+            components: {
+                ...this.defaultComponents,
+                ...components,
+            },
+        }));
+    });
+};
 
-    protected generateDefaultComponents: () => FingerPrintComponents;
+export const generateTimestamp: Generator = (): Promise<FingerPrintData> => {
+    const cookieKey = "bobra.timestamp-finger-print";
 
-    protected get defaultComponents(): FingerPrintComponents {
-        return {
-            resolution: `${window.outerWidth},${window.outerHeight}`,
-            timezone_offset: new Date().getTimezoneOffset(),
-            ...this.generateDefaultComponents(),
-        }
-    }
+    const cookieToken = Cookies.get(cookieKey);
 
-    public constructor(generateDefaultComponents: () => FingerPrintComponents) {
-        this.generateDefaultComponents = generateDefaultComponents;
-    }
+    const targetValue = {
+        token: cookieToken || (
+            Date.now()
+            + Math.random().toString().replace(/\./g, "")
+            + Math.random().toString().replace(/\./g, "")
+        ).substr(0, 32),
+        components: this.defaultComponents,
+    };
 
-    public generateFP2: Generator = (): Promise<FingerPrintData> => {
-        return new Promise((resolve: (data: FingerPrintData) => void) => {
-            new FingerPrint2().get((token, components) => resolve({
-                token,
-                components: {
-                    ...this.defaultComponents,
-                    ...components,
-                },
-            }));
-        });
-    }
+    Cookies.set(cookieKey, targetValue.token);
 
-    public generateTimestamp: Generator = (): Promise<FingerPrintData> => {
-        const cookieToken = Cookies.get(FingerPrintGenerator.timestampCookieKey);
-
-        const targetValue = {
-            token: cookieToken || (
-                Date.now()
-                + Math.random().toString().replace(/\./g, "")
-                + Math.random().toString().replace(/\./g, "")
-            ).substr(0, 32),
-            components: this.defaultComponents,
-        };
-
-        Cookies.set(FingerPrintGenerator.timestampCookieKey, targetValue.token);
-
-        return Promise.resolve(targetValue);
-    }
-}
+    return Promise.resolve(targetValue);
+};
