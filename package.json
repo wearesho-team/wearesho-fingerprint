@@ -1,0 +1,19 @@
+{
+  "name": "@wearesho/fingerprint-generator",
+  "version": "1.0.0",
+  "description": "Library for generating fingerprint",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wearesho-team/wearesho-fingerprint.git"
+  },
+  "author": "Alexander Yagich",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/wearesho-team/wearesho-fingerprint/issues"
+  },
+  "homepage": "https://github.com/wearesho-team/wearesho-fingerprint#readme",
+  "dependencies": {
+    "fingerprintjs2": "^1.8.1"
+  }
+}
