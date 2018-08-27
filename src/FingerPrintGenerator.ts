@@ -1,46 +1,43 @@
-import FingerPrint2 from "fingerprintjs2";
+import Fingerprint2 from "fingerprintjs2";
 import Cookies from "js-cookie";
-import { FingerPrintGenerator as Generator } from "@wearesho/analytics-frontend";
+import { FingerPrintComponents } from "@wearesho/analytics-frontend/src/interfaces";
 
-export interface FingerPrintComponents {
-    resolution: string;
-    timezone_offset: number;
+export const FingerPrintGenerator = (): Promise<{ token: string, components: FingerPrintComponents }> => {
+    return new Promise((resolve) => {
+        try {
+            new Fingerprint2().get((token, components) => {
+                const targetComponents: FingerPrintComponents = {
+                    resolution: `${window.outerWidth},${window.outerHeight}`,
+                    timezone_offset: new Date().getTimezoneOffset(),
+                };
 
-    [K: string]: any;
-}
+                components.forEach(({ key, value }) => targetComponents[key] = value);
 
-export interface FingerPrintData {
-    token: string;
-    components: FingerPrintComponents;
-}
+                resolve({
+                    token,
+                    components: targetComponents,
+                });
+            });
+        } catch (error) {
+            const cookieKey = "bobra.timestamp-finger-print";
 
-export const generateFP2: Generator = (): Promise<FingerPrintData> => {
-    return new Promise((resolve: (data: FingerPrintData) => void) => {
-        new FingerPrint2().get((token, components) => resolve({
-            token,
-            components: {
-                ...this.defaultComponents,
-                ...components,
-            },
-        }));
+            const cookieToken = Cookies.get(cookieKey);
+
+            const targetValue = {
+                token: cookieToken || (
+                    Date.now()
+                    + Math.random().toString().replace(/\./g, "")
+                    + Math.random().toString().replace(/\./g, "")
+                ).substr(0, 32),
+                components: {
+                    resolution: `${window.outerWidth},${window.outerHeight}`,
+                    timezone_offset: new Date().getTimezoneOffset(),
+                }
+            };
+
+            Cookies.set(cookieKey, targetValue.token);
+
+            return Promise.resolve(targetValue);
+        }
     });
-};
-
-export const generateTimestamp: Generator = (): Promise<FingerPrintData> => {
-    const cookieKey = "bobra.timestamp-finger-print";
-
-    const cookieToken = Cookies.get(cookieKey);
-
-    const targetValue = {
-        token: cookieToken || (
-            Date.now()
-            + Math.random().toString().replace(/\./g, "")
-            + Math.random().toString().replace(/\./g, "")
-        ).substr(0, 32),
-        components: this.defaultComponents,
-    };
-
-    Cookies.set(cookieKey, targetValue.token);
-
-    return Promise.resolve(targetValue);
 };
