@@ -1,6 +1,6 @@
 {
   "name": "@wearesho/fingerprint-generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Library for generating fingerprint",
   "main": "index.js",
   "repository": {
