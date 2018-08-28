@@ -1,1 +1,1 @@
-export * from "./FingerprintGenerator";
+export * from "./FingerPrintGenerator";
