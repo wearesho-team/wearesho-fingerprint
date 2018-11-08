@@ -2,8 +2,11 @@ import Fingerprint2 from "fingerprintjs2";
 import Cookies from "js-cookie";
 import { FingerPrintComponents } from "@wearesho/analytics-frontend/src/interfaces";
 
-export const FingerPrintGenerator = (): Promise<{ token: string, components: FingerPrintComponents }> => {
-    return new Promise((resolve) => {
+export const FingerPrintGenerator = async (): Promise<{ token: string, components: FingerPrintComponents }> => {
+    const cookieKey = "bobra.fingerprint";
+    const savedToken = Cookies.get(cookieKey);
+
+    const result = await new Promise<{ token: string, components: FingerPrintComponents }>((resolve) => {
         try {
             new Fingerprint2().get((token, components) => {
                 const targetComponents: FingerPrintComponents = {
@@ -19,12 +22,8 @@ export const FingerPrintGenerator = (): Promise<{ token: string, components: Fin
                 });
             });
         } catch (error) {
-            const cookieKey = "bobra.timestamp-finger-print";
-
-            const cookieToken = Cookies.get(cookieKey);
-
             const targetValue = {
-                token: cookieToken || (
+                token: (
                     Date.now()
                     + Math.random().toString().replace(/\./g, "")
                     + Math.random().toString().replace(/\./g, "")
@@ -35,9 +34,15 @@ export const FingerPrintGenerator = (): Promise<{ token: string, components: Fin
                 }
             };
 
-            Cookies.set(cookieKey, targetValue.token);
-
             return Promise.resolve(targetValue);
         }
     });
+
+    if (savedToken) {
+        result.token = savedToken;
+    }
+
+    Cookies.set(cookieKey, result.token);
+
+    return result;
 };
