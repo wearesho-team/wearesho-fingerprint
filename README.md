@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm i --save @wearesho/fingerprint-generator
+npm i --save @wearesho/fingerprint
 ```
 
 ## Usage
