@@ -1,8 +1,13 @@
 {
-  "name": "@wearesho/fingerprint-generator",
+  "name": "@wearesho/fingerprint",
   "version": "2.0.0",
   "description": "Library for generating fingerprint",
-  "main": "index.js",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack --mode=production",
+    "prepublishOnly": "npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wearesho-team/wearesho-fingerprint.git"
@@ -18,7 +23,16 @@
     "js-cookie": "^2.2.0"
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.1.0"
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@types/js-cookie": "^2.1.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^1.0.1",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
     "@wearesho/analytics-frontend": "^3.0.0"
