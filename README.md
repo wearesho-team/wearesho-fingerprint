@@ -11,7 +11,7 @@ npm i --save @wearesho/fingerprint-generator
 ### Setup and generation
 
 ```typescript
-import * as FingerPrintGenerator from "@wearesho/fingerprint-generator";
+import * as FingerPrint from "@wearesho/fingerprint";
 
-const fingerprint: FingerPrintGenerator.Components = await FingerPrintGenerator.generate();
+const fingerprint: FingerPrint.Components = await FingerPrint.generate();
 ```
