@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm i --save @wearesho/fingerprint
+npm i --save @sho-js/fingerprint
 ```
 
 ## Usage
@@ -11,7 +11,7 @@ npm i --save @wearesho/fingerprint
 ### Setup and generation
 
 ```typescript
-import * as FingerPrint from "@wearesho/fingerprint";
+import * as FingerPrint from "@sho-js/fingerprint";
 
 const fingerprint: FingerPrint.Components = await FingerPrint.generate();
 ```
