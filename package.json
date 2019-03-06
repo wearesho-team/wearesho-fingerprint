@@ -13,7 +13,7 @@
     "url": "git+https://github.com/wearesho-team/wearesho-fingerprint.git"
   },
   "author": "Alexander Yagich",
-  "license": "Proprietary",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wearesho-team/wearesho-fingerprint/issues"
   },
