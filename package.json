@@ -33,8 +33,5 @@
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-node-externals": "^1.7.2"
-  },
-  "peerDependencies": {
-    "@sho-js/analytics-frontend": "^3.0.0"
   }
 }
