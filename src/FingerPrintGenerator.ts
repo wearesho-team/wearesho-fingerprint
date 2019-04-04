@@ -1,5 +1,5 @@
 import Fingerprint2 from "fingerprintjs2";
-import Cookies from "js-cookie";
+import Cookies, { CookieAttributes } from "js-cookie";
 
 export interface Components {
     resolution: string;
@@ -7,7 +7,7 @@ export interface Components {
     [K: string]: any;
 }
 
-export const generate = async (): Promise<{ token: string, components: Components }> => {
+export const generate = async (saveOptions?: CookieAttributes): Promise<{ token: string, components: Components }> => {
     const cookieKey = "bobra.fingerprint";
     const savedToken = Cookies.get(cookieKey);
 
@@ -47,7 +47,7 @@ export const generate = async (): Promise<{ token: string, components: Component
         result.token = savedToken;
     }
 
-    Cookies.set(cookieKey, result.token);
+    Cookies.set(cookieKey, result.token, saveOptions);
 
     return result;
 };
