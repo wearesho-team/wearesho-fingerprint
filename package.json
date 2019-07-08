@@ -1,6 +1,6 @@
 {
   "name": "@sho-js/fingerprint",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Library for generating fingerprint",
   "main": "dist/wearesho-fingerprint.cjs.js",
   "module": "dist/wearesho-fingerprint.esm.js",
