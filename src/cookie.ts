@@ -2,7 +2,7 @@ import Cookies, { CookieAttributes } from "js-cookie";
 import { components, Value, ValueGenerator } from "./index";
 import { simple } from "./simple";
 
-export const cookie: ValueGenerator = (
+export const cookie = (
     fallback: ValueGenerator = simple,
     cookieName: string = "wearesho.fp",
     options?: CookieAttributes

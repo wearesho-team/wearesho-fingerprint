@@ -1,5 +1,5 @@
 import Fingerprint2 from "fingerprintjs2";
-import { ValueComponents, ValueGenerator } from "./index";
+import { Value, ValueComponents, ValueGenerator } from "./index";
 
 export const fp2options: Fingerprint2.Options = {
     fonts: {
@@ -20,7 +20,7 @@ export const fp2options: Fingerprint2.Options = {
     },
 };
 
-export const fp2: ValueGenerator = (options: Fingerprint2.Options = fp2options) =>
+export const fp2 = (options: Fingerprint2.Options = fp2options): Promise<Value> =>
     Fingerprint2.getPromise(options)
         .then((result) => {
             const components = result.reduce((obj, {key, value}) => {
