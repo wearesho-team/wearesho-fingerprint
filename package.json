@@ -2,36 +2,46 @@
   "name": "@sho-js/fingerprint",
   "version": "2.0.1",
   "description": "Library for generating fingerprint",
-  "main": "build/index.js",
-  "typings": "build/index.d.ts",
+  "main": "dist/wearesho-fingerprint.cjs.js",
+  "module": "dist/wearesho-fingerprint.esm.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
   "scripts": {
-    "build": "./node_modules/.bin/webpack --mode=production",
+    "build:types": "tsc --project tsconfig.types.json",
+    "build:compile": "rollup -c",
+    "build:rm": "rm -rf ./dist",
+    "build": "npm run build:rm && npm run build:types && npm run build:compile",
+    "lint": "./node_modules/.bin/tslint --project .",
     "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wearesho-team/wearesho-fingerprint.git"
   },
-  "author": "Alexander Yagich",
+  "author": "Alexander Letnikow",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wearesho-team/wearesho-fingerprint/issues"
   },
   "homepage": "https://github.com/wearesho-team/wearesho-fingerprint#readme",
-  "dependencies": {
-    "fingerprintjs2": "^1.8.1",
+  "peerDependencies": {
+    "fingerprintjs2": "^2.1.0",
     "js-cookie": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/fingerprintjs2": "^2.0.0",
     "@types/js-cookie": "^2.1.0",
-    "awesome-typescript-loader": "^5.2.1",
-    "babel-loader": "^8.0.5",
-    "clean-webpack-plugin": "^1.0.1",
-    "typescript": "^3.3.3",
-    "webpack": "^4.29.3",
-    "webpack-cli": "^3.2.3",
-    "webpack-node-externals": "^1.7.2"
+    "fingerprintjs2": "^2.1.0",
+    "js-cookie": "^2.2.0",
+    "rollup": "^1.15.4",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^5.0.2",
+    "typescript": "^3.3.3"
   }
 }
